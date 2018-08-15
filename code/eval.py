@@ -79,7 +79,7 @@ def generate(caption, wordtoix, ixtoword, text_encoder, netG, blob_service, copi
     #         name = str(k)+'.png'
     #         im.save(name, format="png")
 
-    im = fake_imgs[3][1].data.cpu().numpy()
+    im = fake_imgs[2][1].data.cpu().numpy()
     im = (im + 1.0) * 127.5
     im = im.astype(np.uint8)
     im = np.transpose(im, (1, 2, 0))
