@@ -121,7 +121,7 @@ if __name__ == "__main__":
     # Get data loader
     imsize = cfg.TREE.BASE_SIZE * (2 ** (cfg.TREE.BRANCH_NUM - 1))
     image_transform = transforms.Compose([
-        transforms.Scale(int(imsize * 76 / 64)),
+        transforms.Resize(int(imsize * 76 / 64)),
         transforms.RandomCrop(imsize),
         transforms.RandomHorizontalFlip()])
     dataset = TextDataset(cfg.DATA_DIR, split_dir,
@@ -136,13 +136,15 @@ if __name__ == "__main__":
     algo = trainer(output_dir, dataloader, dataset.n_words, dataset.ixtoword)
 
     start_t = time.time()
-    if cfg.TRAIN.FLAG:
-        algo.train()
-    else:
-        '''generate images from pre-extracted embeddings'''
-        if cfg.B_VALIDATION:
-            algo.sampling(split_dir)  # generate images for the whole valid dataset
-        else:
-            gen_example(dataset.wordtoix, algo)  # generate images for customized captions
+    #if cfg.TRAIN.FLAG:
+    #    algo.train()
+    #else:
+    #    '''generate images from pre-extracted embeddings'''
+    #    if cfg.B_VALIDATION:
+    #        algo.sampling(split_dir)  # generate images for the whole valid dataset
+    #    else:
+    #        gen_example(dataset.wordtoix, algo)  # generate images for customized captions
     end_t = time.time()
-    print('Total time for training:', end_t - start_t)
+    print('Running inference')
+    gen_example(dataset.wordtoix, algo)
+    #print('Total time for training:', end_t - start_t)
