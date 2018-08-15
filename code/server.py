@@ -12,6 +12,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 from eval import *
+from simple import parse_args
 from miscc.config import cfg, cfg_from_file
 import warnings
 warnings.filterwarnings("ignore")
@@ -36,17 +37,6 @@ np.random.seed(seed)
 torch.manual_seed(seed)
 if cfg.CUDA:
   torch.cuda.manual_seed_all(seed)
-
-def parse_args():
- parser = argparse.ArgumentParser(description='AttnGAN Server')
- parser.add_argument('--cfg', dest='cfg_file',
-                     help='optional config file',
-                     default='cfg/bird_attn2.yml', type=str)
- parser.add_argument('--gpu', dest='gpu_id', type=int, default=-1)
- parser.add_argument('--data_dir', dest='data_dir', type=str, default='')
- parser.add_argument('--manualSeed', type=int, help='manual seed')
- args = parser.parse_args()
- return args
 
 def main(SOME_INPUT, OPTIONS):
   '''
