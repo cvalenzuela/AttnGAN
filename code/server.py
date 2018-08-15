@@ -58,8 +58,11 @@ def disconnect():
 @socketio.on('update_request', namespace='/query')
 def new_request(request):
   caption = request["caption"]
-  generation = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
-  emit('update_response', {"results": results})
+  img = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
+  buff = BytesIO()
+  img.save(buff, format="JPEG")
+  string_img = base64.b64encode(buff.getvalue()).decode("utf-8")
+  emit('update_response', {"image": string_img})
 
 # Run the app
 if __name__ == "__main__":

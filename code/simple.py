@@ -37,4 +37,7 @@ if __name__ == '__main__':
   if cfg.CUDA:
     torch.cuda.manual_seed_all(seed)
   caption = 'a green field with trees and mountain in the back'
-  generation = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
+  im = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
+  name = 'RESULT.png'
+  im.save(name, format="png")
+  print('Done!')

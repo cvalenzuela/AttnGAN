@@ -84,8 +84,6 @@ def generate(caption, wordtoix, ixtoword, text_encoder, netG, blob_service, copi
     im = im.astype(np.uint8)
     im = np.transpose(im, (1, 2, 0))
     im = Image.fromarray(im)
-    name = 'RESULT.png'
-    im.save(name, format="png")
     return im
 
 def word_index():
