@@ -5,7 +5,6 @@ with Attentional Generative Adversarial Networks](https://arxiv.org/pdf/1711.104
 
 <img src="framework.png" width="900px" height="350px"/>
 
-
 ### Dependencies
 python 2.7
 
@@ -19,15 +18,11 @@ In addition, please add the project folder to PYTHONPATH and `pip install` the f
 - `nltk`
 - `scikit-image`
 
-
-
 **Data**
 
 1. Download our preprocessed metadata for [birds](https://drive.google.com/open?id=1O_LtUP9sch09QH3s_EBAgLEctBQ5JBSJ) [coco](https://drive.google.com/open?id=1rSnbIGNDGZeHlsUlLdahj0RJ9oo6lgH9) and save them to `data/`
 2. Download the [birds](http://www.vision.caltech.edu/visipedia/CUB-200-2011.html) image data. Extract them to `data/birds/`
 3. Download [coco](http://cocodataset.org/#download) dataset and extract the images to `data/coco/`
-
-
 
 **Training**
 - Pre-train DAMSM models:
@@ -88,3 +83,11 @@ If you find AttnGAN useful in your research, please consider citing:
 
 - [StackGAN++: Realistic Image Synthesis with Stacked Generative Adversarial Networks](https://arxiv.org/abs/1710.10916) [[code]](https://github.com/hanzhanggit/StackGAN-v2)
 - [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://arxiv.org/abs/1511.06434) [[code]](https://github.com/carpedm20/DCGAN-tensorflow)
+
+
+## Custom Application
+
+Run a simple test
+```sh
+python simple.py --cfg cfg/coco_attn2.yml
+```
