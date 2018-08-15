@@ -69,18 +69,24 @@ def generate(caption, wordtoix, ixtoword, text_encoder, netG, blob_service, copi
     noise.data.normal_(0, 1)
     fake_imgs, attention_maps, _, _ = netG(noise, sent_emb, words_embs, mask)
 
-    for j in range(batch_size):
-        for k in range(len(fake_imgs)):
-            im = fake_imgs[k][j].data.cpu().numpy()
-            im = (im + 1.0) * 127.5
-            im = im.astype(np.uint8)
-            im = np.transpose(im, (1, 2, 0))
-            im = Image.fromarray(im)
-            name = str(k)+'.png'
-            im.save(name, format="png")
+    # for j in range(batch_size):
+    #     for k in range(len(fake_imgs)):
+    #         im = fake_imgs[k][j].data.cpu().numpy()
+    #         im = (im + 1.0) * 127.5
+    #         im = im.astype(np.uint8)
+    #         im = np.transpose(im, (1, 2, 0))
+    #         im = Image.fromarray(im)
+    #         name = str(k)+'.png'
+    #         im.save(name, format="png")
 
-    # G attention
-    cap_lens_np = cap_lens.cpu().data.numpy()
+    im = fake_imgs[3][1].data.cpu().numpy()
+    im = (im + 1.0) * 127.5
+    im = im.astype(np.uint8)
+    im = np.transpose(im, (1, 2, 0))
+    im = Image.fromarray(im)
+    name = 'RESULT.png'
+    im.save(name, format="png")
+    return im
 
 def word_index():
     ixtoword = cache.get('ixtoword')

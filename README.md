@@ -91,3 +91,8 @@ Run a simple test
 ```sh
 python simple.py --cfg cfg/coco_attn2.yml
 ```
+
+Run the server:
+```sh
+python server.py --cfg cfg/coco_attn2.yml
+```

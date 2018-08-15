@@ -38,18 +38,9 @@ torch.manual_seed(seed)
 if cfg.CUDA:
   torch.cuda.manual_seed_all(seed)
 
-def main(SOME_INPUT, OPTIONS):
-  '''
-  This could be the main function that queries the model
-  and returns something based on SOME_INPUT with OPTIONS
-  '''
-  return true
-
 # Base route, functions a simple testing 
 @app.route('/')
-def index():
-  caption = 'a green field with trees and mountain in the back'
-  generation = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
+def index(): 
   return jsonify(status="200", message='attnGan is running', query_route='/query')
 
 # When a client socket connects
@@ -66,7 +57,8 @@ def disconnect():
 # When a client sends data. This should call the main() function
 @socketio.on('update_request', namespace='/query')
 def new_request(request):
-  results = main()
+  caption = request["caption"]
+  generation = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
   emit('update_response', {"results": results})
 
 # Run the app
