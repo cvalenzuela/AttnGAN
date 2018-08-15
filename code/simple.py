@@ -4,6 +4,8 @@ import time
 import random
 from eval import *
 from miscc.config import cfg, cfg_from_file
+import warnings
+warnings.filterwarnings("ignore")
 
 def parse_args():
  parser = argparse.ArgumentParser(description='Train a AttnGAN network')
