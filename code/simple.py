@@ -21,7 +21,6 @@ if __name__ == '__main__':
   # gpu based
   args = parse_args()
   cfg_from_file(args.cfg_file)
-  print(cfg)
   cfg.CUDA = True
   # load word dictionaries
   wordtoix, ixtoword = word_index()
@@ -35,7 +34,5 @@ if __name__ == '__main__':
   torch.manual_seed(seed)
   if cfg.CUDA:
     torch.cuda.manual_seed_all(seed)
-  print('Got all requirements.')
   caption = 'a green field with trees and mountain in the back'
   generation = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
-  print(generation)
