@@ -59,7 +59,7 @@ def disconnect():
 def new_request(request):
   caption = request["caption"]
   img = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
-  buff = BytesIO()
+  buff = io.BytesIO()
   img.save(buff, format="JPEG")
   string_img = base64.b64encode(buff.getvalue()).decode("utf-8")
   emit('update_response', {"image": string_img})
