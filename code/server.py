@@ -18,7 +18,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Server settings
-PORT = 3333
+PORT = 3332
 app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app)
@@ -58,12 +58,13 @@ def disconnect():
 @socketio.on('update_request', namespace='/query')
 def new_request(request):
   caption = request["caption"]
-  if (len(caption) > 1):
+  if (len(caption) > 3):
     img = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
-    buff = io.BytesIO()
-    img.save(buff, format="JPEG")
-    string_img = base64.b64encode(buff.getvalue()).decode("utf-8")
-    emit('update_response', {"image": string_img})
+    if img is not None:
+      buff = io.BytesIO()
+      img.save(buff, format="JPEG")
+      string_img = base64.b64encode(buff.getvalue()).decode("utf-8")
+      emit('update_response', {"image": string_img})
 
 # Run the app
 if __name__ == "__main__":
