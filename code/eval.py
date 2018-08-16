@@ -46,8 +46,8 @@ def generate(caption, wordtoix, ixtoword, text_encoder, netG, blob_service, copi
     batch_size = captions.shape[0]
 
     nz = cfg.GAN.Z_DIM
-    captions = Variable(torch.from_numpy(captions), volatile=True)
     if (len(captions) > 0):
+        captions = Variable(torch.from_numpy(captions), volatile=True)
         cap_lens = Variable(torch.from_numpy(cap_lens), volatile=True)
         noise = Variable(torch.FloatTensor(batch_size, nz), volatile=True)
 
