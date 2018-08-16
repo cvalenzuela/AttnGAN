@@ -1,17 +1,26 @@
 .App {
   display: flex;
-  margin: 20vh auto;
+  margin: 0px auto;
+  height: 100%;
 }
 
 .Left{
   flex: 1;
   text-align: right;
   position: relative;
+  padding: 20vh 7rem 0px 7rem;
 }
 
 .Right{
-  flex: 1.3;
-  margin: 0px 0px 0px 2rem;
+  flex: 1.5;
+  background: rgb(243, 243, 243);
+  height: 100vh;
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .ImgOne{
@@ -23,12 +32,17 @@ img{
   -moz-transition: opacity 1.5s ease-in-out;
   -o-transition: opacity 1.5s ease-in-out;
   transition: opacity 1.5s ease-in-out;
+  /* padding: 15vh 0px 0px 0px; */
+  width: 350px;
 }
 
 #ImgTwo{
   position: absolute;
   top: 0px;
   right: 0px;
+  left: 0px;
+  bottom: 0px;
+  margin: auto;
 }
 
 .FadeIn{
@@ -45,11 +59,20 @@ img{
 }
 
 textarea{
-  font-size: 1.3rem;
+  font-size: 3rem;
   border: none;
+  width: 100%;
+  height: 95%;
+  resize: none;
 }
 
 textarea:focus {outline:0;}
+
+.TextArea{
+  width: 100%;
+  height: 100%;
+  /* padding: 20vh 0px 0px 5rem; */
+}
 
 #Status{
   width: 15px;
@@ -63,4 +86,69 @@ textarea:focus {outline:0;}
 
 .Connected{
   background: rgb(4, 212, 4) !important;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .App {
+    display: block;
+    margin: 0vh auto;
+  }
+
+  textarea{
+    font-size: 1.5rem;
+    padding: 1em;
+  }
+  
+  .Left{
+    display: block;
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+    padding: 1em 0 1em 0;
+  }
+
+  .Right{
+    display: block;
+  }
+
+  img{
+    padding: 1vh 0px 0px 0px;
+  }
+
+  #ImgTwo{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    margin: 0 auto;
+  }
+
+  .Credits{
+    text-align: center;
+    position: relative !important;
+    bottom: 3rem !important;
+    left: 0px;
+    right: 0px;
+    margin: 0 auto;
+    font-size: 12px;
+  }
+
+}
+
+.Credits{
+  text-align: center;
+  position: absolute;
+  bottom: 1rem;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+  font-size: 12px;
+}
+
+.Credits a{
+  color: rgb(27, 27, 27);
+  text-decoration: none;
+  padding: 0px 0px 1px 0px;
+  border-bottom: 1px solid black;
 }

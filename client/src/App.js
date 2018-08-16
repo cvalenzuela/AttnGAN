@@ -3,12 +3,12 @@ import Typist from 'react-typist';
 import './styles/App.css';
 import io from 'socket.io-client';
 import 'react-typist/dist/Typist.css';
-import imgOne from './img/1.png'
-import imgTwo from './img/2.png'
+// import imgOne from './img/1.png'
+// import imgTwo from './img/2.png'
 import white from './img/white.png'
 
-const SERVER_IP = '18.208.216.117'
-const PORT = '5678';
+const SERVER_IP = '64.62.141.30'
+const PORT = '3332';
 const ROUTE = '/query'
 const URL = `http://${SERVER_IP}:${PORT}${ROUTE}`
 
@@ -23,9 +23,7 @@ class App extends Component {
     auto: false
   }
 
-
-  componentDidMount(){
-    const socket = io(URL);
+  componentDidMount(){    
     this.setState({
       socket: io(URL)
     }, () => {
@@ -86,19 +84,31 @@ class App extends Component {
       <div className="App">
         <span id="Status" className={connected ? "Connected" : null}></span>
         <div className="Left">
-          <img className={classImgOne} src={srcImgOne ? srcImgOne : white} alt='img one'/>
-          <img className={classImgTwo} id='ImgTwo' src={srcImgTwo ? srcImgTwo : white} alt='img two'/>
-        </div>
-        <div className="Right">
           {
             !auto
             ?
-            <textarea name="" id="" cols="30" rows="10" onChange={this.handleTextArea} value={textArea}></textarea>
+            <div className="TextArea">
+              <textarea
+                placeholder='Write something...'
+                cols="30" 
+                rows="10"
+                onChange={this.handleTextArea} 
+                value={textArea}
+              >
+              </textarea>
+            </div>
             :
             <Typist avgTypingDelay={90}>
                 The machine does not work, but that, to my mind, is a secondary matter. Nor do the machines that attempt to produce continuous movement, whose plans add mystery to the pages of the most effusive encyclopedias; metaphysical or theological theories do not work either (....), but their well-known and famous uselessness does not reduce their interest
             </Typist>
           }
+        </div>
+        <div className="Right">
+          <img className={classImgOne} src={srcImgOne ? srcImgOne : white} alt='img one'/>
+          <img className={classImgTwo} id='ImgTwo' src={srcImgTwo ? srcImgTwo : white} alt='img two'/>
+        </div>
+        <div className='Credits'>
+          <p>Made by <a href="https://cvalenzuelab.com/">Cris Valenzuela</a> with <a href="https://runwayml.com/">Runway</a> | Using <a href="https://github.com/taoxugit/AttnGAN/">AttnGAN</a> | GPU hosting thanks to <a href="https://www.paperspace.com/">Paperspace</a>  </p>
         </div>
       </div>
     );

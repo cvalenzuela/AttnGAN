@@ -47,44 +47,45 @@ def generate(caption, wordtoix, ixtoword, text_encoder, netG, blob_service, copi
 
     nz = cfg.GAN.Z_DIM
     captions = Variable(torch.from_numpy(captions), volatile=True)
-    cap_lens = Variable(torch.from_numpy(cap_lens), volatile=True)
-    noise = Variable(torch.FloatTensor(batch_size, nz), volatile=True)
+    if (len(captions) > 0):
+        cap_lens = Variable(torch.from_numpy(cap_lens), volatile=True)
+        noise = Variable(torch.FloatTensor(batch_size, nz), volatile=True)
 
-    if cfg.CUDA:
-        captions = captions.cuda()
-        cap_lens = cap_lens.cuda()
-        noise = noise.cuda()
+        if cfg.CUDA:
+            captions = captions.cuda()
+            cap_lens = cap_lens.cuda()
+            noise = noise.cuda()
 
-    #######################################################
-    # (1) Extract text embeddings
-    #######################################################
-    hidden = text_encoder.init_hidden(batch_size)
-    words_embs, sent_emb = text_encoder(captions, cap_lens, hidden)
-    mask = (captions == 0)
-        
+        #######################################################
+        # (1) Extract text embeddings
+        #######################################################
+        hidden = text_encoder.init_hidden(batch_size)
+        words_embs, sent_emb = text_encoder(captions, cap_lens, hidden)
+        mask = (captions == 0)
+            
 
-    #######################################################
-    # (2) Generate fake images
-    #######################################################
-    noise.data.normal_(0, 1)
-    fake_imgs, attention_maps, _, _ = netG(noise, sent_emb, words_embs, mask)
+        #######################################################
+        # (2) Generate fake images
+        #######################################################
+        noise.data.normal_(0, 1)
+        fake_imgs, attention_maps, _, _ = netG(noise, sent_emb, words_embs, mask)
 
-    # for j in range(batch_size):
-    #     for k in range(len(fake_imgs)):
-    #         im = fake_imgs[k][j].data.cpu().numpy()
-    #         im = (im + 1.0) * 127.5
-    #         im = im.astype(np.uint8)
-    #         im = np.transpose(im, (1, 2, 0))
-    #         im = Image.fromarray(im)
-    #         name = str(k)+'.png'
-    #         im.save(name, format="png")
+        # for j in range(batch_size):
+        #     for k in range(len(fake_imgs)):
+        #         im = fake_imgs[k][j].data.cpu().numpy()
+        #         im = (im + 1.0) * 127.5
+        #         im = im.astype(np.uint8)
+        #         im = np.transpose(im, (1, 2, 0))
+        #         im = Image.fromarray(im)
+        #         name = str(k)+'.png'
+        #         im.save(name, format="png")
 
-    im = fake_imgs[2][1].data.cpu().numpy()
-    im = (im + 1.0) * 127.5
-    im = im.astype(np.uint8)
-    im = np.transpose(im, (1, 2, 0))
-    im = Image.fromarray(im)
-    return im
+        im = fake_imgs[2][1].data.cpu().numpy()
+        im = (im + 1.0) * 127.5
+        im = im.astype(np.uint8)
+        im = np.transpose(im, (1, 2, 0))
+        im = Image.fromarray(im)
+        return im
 
 def word_index():
     ixtoword = cache.get('ixtoword')
