@@ -18,7 +18,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Server settings
-PORT = 5678
+PORT = 3333
 app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app)
