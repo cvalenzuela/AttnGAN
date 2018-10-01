@@ -9,16 +9,18 @@ import io
 import numpy as np
 from PIL import Image
 from flask import Flask, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_socketio import SocketIO, emit
 from eval import *
 from simple import parse_args
 from miscc.config import cfg, cfg_from_file
 import warnings
 warnings.filterwarnings("ignore")
+import resource
+resource.setrlimit(resource.RLIMIT_NOFILE, (65536, 65536))
 
 # Server settings
-PORT = 3332
+PORT = 3333
 app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app)
@@ -58,7 +60,7 @@ def disconnect():
 @socketio.on('update_request', namespace='/query')
 def new_request(request):
   caption = request["caption"]
-  if (len(caption) > 3):
+  if (len(caption) > 1):
     img = generate(caption, wordtoix, ixtoword, text_encoder, netG, False)
     if img is not None:
       buff = io.BytesIO()
